@@ -7,3 +7,90 @@ datasource db {
   url       = env("DATABASE_URL")
   directUrl = env("DIRECT_URL")
 }
+
+model User {
+  id           String    @id @default(cuid())
+  username     String    @unique
+  email        String    @unique
+  name         String?
+  position     String?
+  passwordHash String
+  avatarUrl    String?
+  createdAt    DateTime  @default(now())
+
+  // связи
+  ownedGroups  Group[]        @relation("GroupOwner")
+  memberships  GroupMember[]
+  createdTests Test[]         @relation("TestAuthor")
+  submissions  Submission[]
+  accounts     Account[]
+  sessions     Session[]
+}
+
+// шаблон вопроса
+enum MediaType {
+  TEXT
+  IMAGE
+  AUDIO
+}
+
+model Question {
+  id             String    @id @default(cuid())
+  order          Int
+  questionType   MediaType
+  answerType     MediaType
+  text           String?
+  imageUrl       String?
+  audioUrl       String?
+  points         Float     @default(1)
+
+  testId         String
+  test           Test      @relation(fields: [testId], references: [id], onDelete: Cascade)
+  options        AnswerOption[]
+  answers        SubmissionAnswer[]
+}
+
+model AnswerOption {
+  id        String   @id @default(cuid())
+  order     Int
+  text      String?
+  imageUrl  String?
+  audioUrl  String?
+  isCorrect Boolean  @default(false)
+
+  questionId String
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+}
+
+// 
+enum GroupAccess {
+  OPEN        // любой может вступить
+  BY_INVITE   // только по приглашению
+}
+
+model Group {
+  id        String      @id @default(cuid())
+  name      String
+  slug      String      @unique
+  access    GroupAccess @default(OPEN)
+  createdAt DateTime    @default(now())
+
+  ownerId   String
+  owner     User        @relation("GroupOwner", fields: [ownerId], references: [id])
+  members   GroupMember[]
+  tests     TestAssignment[]
+}
+
+model Test {
+  id          String     @id @default(cuid())
+  title       String
+  autoCheck   Boolean    @default(true) // авто или ручная проверка
+  timeLimit   Int?       // минуты
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  authorId    String
+  author      User       @relation("TestAuthor", fields: [authorId], references: [id])
+  questions   Question[]
+  assignments TestAssignment[]
+}
