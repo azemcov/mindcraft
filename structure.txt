@@ -1,0 +1,38 @@
+﻿      
++---public
+\---src
+    +---app
+    |   |   favicon.ico
+    |   |   globals.css
+    |   |   layout.tsx
+    |   |   page.tsx
+    |   |   
+    |   +---(auth)
+    |   +---(examiner)
+    |   +---(student)
+    |   +---api
+    |   +---components
+    |   |   |   Buttons.tsx
+    |   |   |   ThemeToggle.tsx
+    |   |   |   
+    |   |   +---header
+    |   |   |       Header.tsx
+    |   |   |       HeaderMenu.tsx
+    |   |   |       
+    |   |   \---header2
+    |   |           Header2.tsx
+    |   |           
+    |   \---p
+    +---hooks
+    |       useTheme.ts
+    |       
+    +---lib
+    +---providers
+    |       mui-provider.tsx
+    |       theme-provider.tsx
+    |       
+    +---services
+    +---styles
+    |       theme.ts
+    |       
+    \---types

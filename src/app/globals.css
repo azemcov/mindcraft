@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+:root {
+  /* Шрифты */
+  --font-sans: Roboto, sans-serif; /* другое имя в :root */
+
+  /* Светлая тема */
+  --base: #92959b;
+  --background: #e9e1dd;
+  --card: #ffffff;
+  --card-dark: #dacdc8;
+
+  --foreground: #1c1614;
+  --muted-foreground: #92959b;
+  --invert-foreground: #ffffff;
+
+  --accent-dark: #1c1614;
+  --muted: #ececec;
+  --muted-hover: #f7f7f7;
+
+  --danger: #de483b;
+  --warning: #fdd164;
+  --success: #5cbe92;
+  --info: #4b86a5;
+}
+
+/* Тёмная тема */
+.dark {
+  --base: #4b4a4a;
+  --background: #1c1614;
+  --card: #33312f;
+  --card-dark: #25211d;
+
+  --foreground: #e9e1dd;
+  --muted-foreground: #7a6a64;
+  --invert-foreground: #1c1614;
+
+  --accent-dark: #b8b0aa;
+  --muted: #4b4644;
+  --muted-hover: #554f4d;
+
+  --danger: #d44040;
+  --warning: #f0b840;
+  --success: #52b070;
+  --info: #70aacc;
+}
+
+@theme {
+  --color-base: var(--base);
+  --color-background: var(--background);
+  --color-card: var(--card);
+  --color-card-dark: var(--card-dark);
+
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-invert-foreground: var(--invert-foreground);
+
+  --color-accent-dark: var(--accent-dark);
+  --color-muted: var(--muted);
+  --color-muted-hover: var(--muted-hover);
+
+  --color-danger: var(--danger);
+  --color-warning: var(--warning);
+  --color-success: var(--success);
+  --color-info: var(--info);
+
+  --font-sans: var(--font-sans);
+}
+
+@variant dark (&:where(.dark, .dark *));
+
+body {
+  background: var(--base);
+  color: var(--foreground);
+}
+
+@tailwind utilities;
+.rounded-5xl {
+  border-radius: 40px;
+}
+.rounded-6xl {
+  border-radius: 48px;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
