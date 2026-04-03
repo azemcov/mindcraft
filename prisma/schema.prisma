@@ -1,12 +1,11 @@
-datasource db {
-  provider = "postgresql"
-}
-
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
 }
 
+datasource db {
+  provider  = "postgresql"
+}
 // ─────────────────────────────────────────────
 // AUTH (NextAuth.js)
 // ─────────────────────────────────────────────
